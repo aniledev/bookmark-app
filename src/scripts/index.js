@@ -4,7 +4,7 @@ import $ from "jquery";
 
 // EVENT HANDLER FUNCTIONS
 const handleNewItemClick = function (event) {
-  $(".home").on("click", ".new", (event) => {
+  $(".top-button").on("click", ".new", (event) => {
     // code that you want to execute
     console.log("new item button clicked");
     // render();
@@ -12,7 +12,7 @@ const handleNewItemClick = function (event) {
 };
 
 const handleFilterClick = function () {
-  $(".home").on("click", ".filter", (event) => {
+  $(".top-button").on("click", ".filter", (event) => {
     // code that you want to execute
     console.log("filter button clicked");
     render();
@@ -20,7 +20,7 @@ const handleFilterClick = function () {
 };
 
 const handleDeleteItemClick = function () {
-  $("").on("click", "", (event) => {
+  $(".bookmark").on("click", ".delete", (event) => {
     // code that you want to execute
     console.log("delete bookmark button clicked");
     render();
@@ -28,7 +28,7 @@ const handleDeleteItemClick = function () {
 };
 
 const handleClearFilterClick = function () {
-  $("").on("click", "", (event) => {
+  $(".button").on("click", ".clear-filter", (event) => {
     // code that you want to execute
     console.log("clear filter button clicked");
     render();
@@ -36,7 +36,7 @@ const handleClearFilterClick = function () {
 };
 
 const handleExpandItemClick = function () {
-  $("").on("click", "", (event) => {
+  $(".bookmark").on("click", ".title", (event) => {
     // code that you want to execute
     console.log("expand bookmark clicked");
     render();
@@ -44,7 +44,7 @@ const handleExpandItemClick = function () {
 };
 
 const handleCancelClick = function () {
-  $("").on("click", "", (event) => {
+  $(".button").on("click", ".cancel", (event) => {
     // code that you want to execute
     console.log("cancel add button clicked");
     render();
@@ -52,7 +52,7 @@ const handleCancelClick = function () {
 };
 
 const handleCreateItemClick = function () {
-  $("").on("click", "", (event) => {
+  $(".button").on("click", ".create", (event) => {
     // code that you want to execute
     console.log("create new bookmark click");
     render();
