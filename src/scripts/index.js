@@ -3,16 +3,16 @@ import $ from "jquery";
 // TEMPLATE GENERATION FUNCTIONS
 
 // EVENT HANDLER FUNCTIONS
-const handleNewItemClick = function () {
-  $("").on("click", "", (event) => {
+const handleNewItemClick = function (event) {
+  $(".home").on("click", ".new", (event) => {
     // code that you want to execute
     console.log("new item button clicked");
-    render();
+    // render();
   });
 };
 
 const handleFilterClick = function () {
-  $("").on("click", "", (event) => {
+  $(".home").on("click", ".filter", (event) => {
     // code that you want to execute
     console.log("filter button clicked");
     render();
