@@ -18,12 +18,204 @@
     <link rel="stylesheet" href="/styles/styles.css" type="text/css" />
 
     <!-- Link to Font Awesome or other icons/image service -->
+    <link
+      rel="stylesheet"
+      href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css"
+      integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p"
+      crossorigin="anonymous"
+    />
   </head>
 
+  <!-- UNSURE HOW TO ADD STAR ICONS TO THE DIVS -->
   <body>
     <main>
-      <section>
-        <div id="root"></div>
+      <!-- Home/Start state -->
+      <section id="home" class="home">
+        <div>
+          <h1>myMarks</h1>
+        </div>
+        <div class="top-button button">
+          <button id="new" class="new">
+            <i class="fas fa-plus fa-xs"></i> New
+          </button>
+          <button id="filter" class="filter">
+            <i class="fas fa-filter fa-xs"></i> Filter
+          </button>
+        </div>
+        <div>
+          <h3>Title 11</h3>
+          <h3>Title 10</h3>
+          <h3>Title 9</h3>
+          <h3>Title 8</h3>
+          <h3>Title 7</h3>
+          <h3>Title 6</h3>
+        </div>
+      </section>
+
+      <!-- Expanded bookmark state -->
+      <section id="expanded" class="expanded">
+        <div>
+          <h1>myMarks</h1>
+        </div>
+        <div class="top-button button">
+          <button id="new" class="new">
+            <i class="fas fa-plus fa-xs"></i> New
+          </button>
+          <button id="filter" class="filter">
+            <i class="fas fa-filter fa-xs"></i> Filter
+          </button>
+        </div>
+        <div>
+          <h3>Title 11</h3>
+          <div class="indented" id="indented">
+            <button id="site-link" class="site-link">Site</button>
+            <button id="delete" class="delete" delete>Delete</button>
+            <p>
+              Lorem ipsum dolor sit amet consectetur, adipisicing elit. Officia
+              tempora corrupti soluta quod delectus! Modi nobis distinctio
+              laudantium quis. Officia, labore sit quas eveniet illum ipsa nobis
+              nam aperiam nostrum? Molestiae non culpa nisi porro. Sed ducimus
+              neque aut officiis vero nostrum tempora blanditiis cum placeat
+              ratione, illo dolore nobis.
+            </p>
+          </div>
+
+          <h3>Title 10</h3>
+          <h3>Title 9</h3>
+          <h3>Title 8</h3>
+          <h3>Title 7</h3>
+          <h3>Title 6</h3>
+        </div>
+      </section>
+
+      <!-- Deleted bookmark state -->
+      <section id="deleted" class="deleted">
+        <div>
+          <h1>myMarks</h1>
+        </div>
+        <div class="top-button button">
+          <button id="new" class="new">
+            <i class="fas fa-plus fa-xs"></i> New
+          </button>
+          <button id="filter" class="filter">
+            <i class="fas fa-filter fa-xs"></i> Filter
+          </button>
+        </div>
+        <div>
+          <h3>Title 10</h3>
+          <h3>Title 9</h3>
+          <h3>Title 8</h3>
+          <h3>Title 7</h3>
+          <h3>Title 6</h3>
+        </div>
+      </section>
+      <!-- Filter state -->
+      <section id="filter" class="filter">
+        <div>
+          <h1>myMarks</h1>
+        </div>
+        <div class="top-button button">
+          <button id="new" class="new">
+            <i class="fas fa-plus fa-xs"></i> New
+          </button>
+          <button id="filter" class="filter">
+            <i class="fas fa-filter fa-xs"></i> Filter
+          </button>
+        </div>
+        <div id="ratings" class="ratings">
+          <label for="ratings" class="ratings">Select Filter</label>
+          <select name="ratings" id="ratings">
+            <option value="" selected>4</option>
+            <option value="All">All</option>
+            <option value="5">5</option>
+            <option value="4">4</option>
+            <option value="3">3</option>
+            <option value="2">2</option>
+            <option value="1">1</option>
+          </select>
+        </div>
+        <div>
+          <h3>Title 10</h3>
+          <h3>Title 8</h3>
+        </div>
+        <div class="button">
+          <button id="clear-filter" class="clear-filter">Clear</button>
+        </div>
+      </section>
+
+      <!-- Add bookmark form state -->
+      <section id="add" class="add">
+        <div>
+          <h1>myMarks</h1>
+        </div>
+        <div id="form" class="form">
+          <h3>Add a new bookmark</h3>
+          <form action="">
+            <label for="url">URL</label>
+            <input
+              type="text"
+              id="url"
+              name="url"
+              placeholder="www.samplesite.com"
+            />
+            <label for="rating">Rating</label>
+            <input type="number" id="rating" name="rating" placeholder="3" />
+            <label for="description">Description</label>
+            <textarea
+              name="description"
+              id="description"
+              cols="30"
+              rows="10"
+              placeholder="Enter a description (optional)"
+            ></textarea>
+          </form>
+        </div>
+        <div class="button">
+          <button id="cancel" class="cancel">Cancel</button>
+          <button id="create" class="create">Create</button>
+        </div>
+      </section>
+
+      <!-- Form error state -->
+      <section id="error" class="error">
+        <div>
+          <h1>myMarks</h1>
+        </div>
+        <div id="form" class="form">
+          <h3>Add a new bookmark</h3>
+          <form action="">
+            <label for="url">URL</label>
+            <input
+              type="text"
+              id="url"
+              class="error-placeholder"
+              name="url"
+              placeholder="www.samplesite.com"
+            />
+            <label for="rating">Rating</label>
+            <input
+              type="number"
+              id="rating"
+              name="rating"
+              placeholder="3"
+              class="error-placeholder"
+            />
+            <label for="description">Description</label>
+            <textarea
+              name="description"
+              id="description"
+              class="error-placeholder"
+              cols="30"
+              rows="10"
+              placeholder="Enter a description (optional)"
+            ></textarea>
+          </form>
+        </div>
+        <div></div>
+        <div class="button">
+          <button id="cancel" class="cancel">Cancel</button>
+          <button id="create" class="create">Create</button>
+        </div>
       </section>
     </main>
     <!-- Script tags go within the body tags at the end -->
