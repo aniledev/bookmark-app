@@ -1,0 +1,12 @@
+{
+  "name": "bookmark-app",
+  "version": "1.0.0",
+  "description": "A bookmark app using a responsive web design, interactivity and asynchronous actions",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "Elina McGill",
+  "license": "ISC"
+}
