@@ -1,5 +1,3 @@
-import $ from jquery;
-
 //  EXAMPLE STORE DATA SINGLE SOURCE OF TRUTH
 let store = {
   bookmarks: [
@@ -50,28 +48,28 @@ const generateAddForm = function () {
 
 // EVENT HANDLER FUNCTIONS
 
-const handleNewItemClick = function (event) {
-  $(".top-button").on("click", ".new", (event) => {
+const handleNewButtonClick = function () {
+  $(".top-button").on("click", ".new", function () {
     // code that you want to execute
-    // console log to indicated user clicked button
+    console.log("new item button clicked");
     // change adding state to true in store
     // if adding is true generate add form html in the render function
     // render add form html
-    console.log("new item button clicked");
-    let html = "";
-    html = generateAddForm();
-    $(".top-button").empty();
-    $("").html(html);
+    // let html = "";
+    // html = generateAddForm();
+    // $(".top-button").empty();
+    // $("").html(html);
   });
 };
 
 const handleFilterClick = function () {
-  $(".top-button").on("click", ".filter", (event) => {
+  $(".top-button").on("click", ".filter", function () {
+    console.log("filter button clicked");
     // code that you want to execute
     // console log to indicate user clicked the button
     // change filtering state in store to true
     // if filtered state is true generate the dropdown html in the render function
-    console.log("filter button clicked");
+
     render();
   });
 };
@@ -155,7 +153,10 @@ const addNewBookmark = function () {
 // RENDER FUNCTION
 const render = function () {};
 
-function main() {}
+function main() {
+  handleNewButtonClick();
+  handleFilterClick();
+}
 
 // this function is the only function that stays in the index.js file once you modularize the tile structure
 $(main);
