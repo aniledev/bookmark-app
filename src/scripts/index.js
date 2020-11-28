@@ -1,11 +1,17 @@
-import $ from "jquery";
+import $ from jquery;
 
 //  EXAMPLE STORE DATA SINGLE SOURCE OF TRUTH
 let store = {
   bookmarks: [
-    { id: 1, title: javascript, rating: 3, expanded: false, filtered: false },
-    { id: 2, title: css, rating: 4, expanded: false, filtered: false },
-    { id: 3, title: programming, rating: 2, expanded: false, filtered: false },
+    { id: 1, title: "javascript", rating: 3, expanded: false, filtered: false },
+    { id: 2, title: "css", rating: 4, expanded: false, filtered: false },
+    {
+      id: 3,
+      title: "programming",
+      rating: 2,
+      expanded: false,
+      filtered: false,
+    },
   ],
   adding: false,
   filtering: false,
@@ -22,10 +28,10 @@ const generateAddForm = function () {
       type="text"
       id="url"
       name="url"
-      placeholder="www.samplesite.com"
+      placeholder="www.samplesite.com" required
     />
     <label for="rating">Rating</label>
-    <input type="number" id="rating" name="rating" placeholder="3" />
+    <input type="number" id="rating" name="rating" placeholder="3" required/>
     <label for="description">Description</label>
     <textarea
       name="description"
@@ -116,6 +122,9 @@ const handleExpandItemClick = function () {
 const handleCancelClick = function () {
   $(".button").on("click", ".cancel", (event) => {
     // code that you want to execute
+    // change adding state to false in the store
+    // if adding state is false, then generate the home page html
+    // render the home page html
     console.log("cancel add button clicked");
     render();
   });
@@ -123,10 +132,24 @@ const handleCancelClick = function () {
 
 const handleCreateItemClick = function () {
   $(".button").on("click", ".create", (event) => {
-    // code that you want to execute
+    //code that you want to execute
+    // prevent default action
+    // when the user inputs information into the form, capture the info in way that can be added into the store
+    // use .val to capture the input values
+    // call the addNewBookmark function to add bookmark and change the state of the store
     console.log("create new bookmark click");
     render();
   });
+};
+
+// FUNCTIONS THAT CHANGE THE STATE OF THE STORE
+const addNewBookmark = function () {
+  //code you want to execute
+  // run the validate name function to validate the form inputs
+  // run the create item name function, this factory funtion will return an object to push to the store
+  // push the new bookmark to the store using .push()
+  // call the render function to show the new state of the store
+  // add a try catch block to handle errors
 };
 
 // RENDER FUNCTION
