@@ -15,15 +15,33 @@
     />
     <!-- Link to Google fonts if used -->
     <!-- Link to external CSS stylesheet. The style sheet you create -->
-    <link rel="stylesheet" href="/styles/styles.css" type="text/css" />
+    <link rel="stylesheet" href="/src/styles/styles.css" type="text/css" />
 
     <!-- Link to Font Awesome or other icons/image service -->
+    <link
+      rel="stylesheet"
+      href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css"
+      integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p"
+      crossorigin="anonymous"
+    />
   </head>
 
+  <!-- UNSURE HOW TO ADD STAR ICONS TO THE DIVS -->
   <body>
     <main>
-      <section>
-        <div id="root"></div>
+      <!-- Home/Start state -->
+      <section id="home" class="home">
+        <div>
+          <h1>myMarks</h1>
+        </div>
+        <div class="top-button button">
+          <button id="new" class="new">
+            <i class="fas fa-plus fa-xs"></i> New
+          </button>
+          <button id="filter" class="filter">
+            <i class="fas fa-filter fa-xs"></i> Filter
+          </button>
+        </div>
       </section>
     </main>
     <!-- Script tags go within the body tags at the end -->
