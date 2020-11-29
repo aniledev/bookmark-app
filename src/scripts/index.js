@@ -41,8 +41,13 @@ const generateAddForm = function () {
   return `<div id="form" class="form">
   <h3>Add a new bookmark</h3>
   <form action="">
-    <label for="title">Title<label>
-    <input type="text" id="title" name="title" placeholder="Awesome Bookmark Site" />
+    <label for="title">Title</label>
+    <input
+      type="text"
+      id="title"
+      name="title"
+      placeholder="Awesome Bookmark Site"
+    />
     <label for="url">URL</label>
     <input
       type="text"
