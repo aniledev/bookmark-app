@@ -36,6 +36,24 @@ let store = {
 };
 
 // TEMPLATE GENERATION FUNCTIONS
+const generateHomeScreen = function () {
+  return `<div class="top-button button">
+  <button id="new" class="new">
+    <i class="fas fa-plus fa-xs"></i> New
+  </button>
+  <button id="filter" class="filter">
+    <i class="fas fa-filter fa-xs"></i> Filter
+  </button>
+</div>
+<div id="bookmarks" class="bookmarks">
+  <h3>Title 11</h3>
+  <h3>Title 10</h3>
+  <h3>Title 9</h3>
+  <h3>Title 8</h3>
+  <h3>Title 7</h3>
+  <h3>Title 6</h3>
+</div>`;
+};
 
 const generateAddForm = function () {
   return `<div id="form" class="form">
@@ -194,10 +212,11 @@ const handleCancelClick = function () {
     // code that you want to execute
     console.log("cancel button clicked");
     // when user clicks button, change adding state to false
+    store.adding = false;
     // when user clicks button, change filtering state to false
-    // if adding state is false, then generate the home page html
+    store.filtering = false;
     // render the home page html based on the condition
-    // render();
+    render();
   });
 };
 
@@ -246,6 +265,14 @@ const render = function () {
     // use jquery to replace the old html with new html
     // $(".bookmarks").remove();
     // $(".bottom-button").remove();
+    $(".top-button").html(html);
+  }
+  // if adding state is false and filtering state is false, generate the home screen html
+  if (store.adding === false && store.filtering === false) {
+    console.log("render home function working");
+    // use jquery to replace existing html with html for the home state
+    let html = "";
+    html = generateHomeScreen();
     $(".top-button").html(html);
   }
 };
