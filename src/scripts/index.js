@@ -58,30 +58,30 @@ const generateHomeScreen = function () {
 const generateAddForm = function () {
   return `<div id="form" class="form">
   <h3>Add a new bookmark</h3>
-  <form action="">
+  <form id="form" class="form" action="" method="post" enctype="multipart/form-data">
     <label for="title">Title</label>
     <input
-      type="text"
+    required type="text"
       id="title"
       class="title"
       name="title"
-      placeholder="Awesome Bookmark Site"
+      placeholder="Awesome Bookmark Site" 
     />
     <label for="url">URL</label>
     <input
-      type="text"
+    required type="text"
       id="url"
       class="url"
       name="url"
-      placeholder="www.samplesite.com"
+      placeholder="www.samplesite.com" 
     />
     <label for="rating">Rating</label>
     <select
-      id="rating"
+    required id="rating"
       name="rating"
       type="number"
       class="rating"
-      placeholder="3"
+      placeholder="3" 
     >
       <option value="1">1</option>
       <option value="2">2</option>
@@ -103,7 +103,7 @@ const generateAddForm = function () {
 <div id="bookmarks" class="bookmarks"></div>
 <div class="bottom-button">
   <button id="cancel" class="cancel">Cancel</button>
-  <button id="create" class="create">Create</button>
+  <button type="submit" id="create" class="create">Create</button>
 </div>`;
 };
 
@@ -222,16 +222,42 @@ const handleCancelClick = function () {
 
 const handleCreateItemClick = function () {
   $("main").on("click", ".create", function () {
+    event.preventDefault();
     console.log("create bookmark button clicked");
-    // prevent default action
+
+    store.adding = false;
+    store.filtering = false;
     // when the user inputs information into the form, capture the info in way that can be added into the store
-    // use .val to capture the input values
+    // use .val to capture the input values and set to values to pass into factory function
     // call the addNewBookmark function to add bookmark and change the state of the store
     // render();
   });
 };
 
 // FUNCTIONS THAT CHANGE THE STATE OF THE STORE
+
+// const serializeJSON = function () {
+//   // the purpose of this function is to convert form data into an object format
+//   const formData = new FormData(document.getElementById("form"));
+//   const o = {};
+//   formData.forEach((val, name) => (o[name] = val));
+//   console.log(JSON.stringify(o));
+//   return JSON.stringify(o);
+// };
+
+const createBookmarkObject = function () {
+  // this function will take in values from the form and create a new object that can be pushed to the store data
+  return {
+    id: cuid(),
+    title: title,
+    rating: rating,
+    url: url,
+    descirption: description,
+    expanded: false,
+    filtered: false,
+  };
+};
+
 const addNewBookmark = function () {
   //code you want to execute
   // run the validate name function to validate the form inputs
