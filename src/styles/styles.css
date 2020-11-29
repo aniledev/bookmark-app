@@ -102,6 +102,10 @@ textarea[class="error-placeholder"]::placeholder {
   color: orange;
 }
 
+select[class="error-placeholder"]::placeholder {
+  color: orange;
+}
+
 /* Media query for desktop CSS declarations */
 @media all and (min-width: 600px) {
   section {
