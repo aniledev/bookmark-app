@@ -221,13 +221,12 @@ const handleCancelClick = function () {
 };
 
 const handleCreateItemClick = function () {
-  $(".button").on("click", ".create", (event) => {
-    //code that you want to execute
+  $("main").on("click", ".create", function () {
+    console.log("create bookmark button clicked");
     // prevent default action
     // when the user inputs information into the form, capture the info in way that can be added into the store
     // use .val to capture the input values
     // call the addNewBookmark function to add bookmark and change the state of the store
-    console.log("create new bookmark click");
     // render();
   });
 };
@@ -281,6 +280,7 @@ function main() {
   handleNewButtonClick();
   handleFilterClick();
   handleCancelClick();
+  handleCreateItemClick();
 }
 
 // this function is the only function that stays in the index.js file once you modularize the tile structure
