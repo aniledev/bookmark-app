@@ -45,6 +45,7 @@ const generateAddForm = function () {
     <input
       type="text"
       id="title"
+      class="title"
       name="title"
       placeholder="Awesome Bookmark Site"
     />
@@ -52,53 +53,101 @@ const generateAddForm = function () {
     <input
       type="text"
       id="url"
+      class="url"
       name="url"
       placeholder="www.samplesite.com"
     />
     <label for="rating">Rating</label>
-    <input type="number" id="rating" name="rating" placeholder="3" />
+    <select
+      id="rating"
+      name="rating"
+      type="number"
+      class="rating"
+      placeholder="3"
+    >
+      <option value="1">1</option>
+      <option value="2">2</option>
+      <option value="3">3</option>
+      <option value="4">4</option>
+      <option value="5">5</option>
+    </select>
     <label for="description">Description</label>
     <textarea
       name="description"
       id="description"
+      class="description"
       cols="30"
       rows="10"
       placeholder="Enter a description (optional)"
     ></textarea>
   </form>
 </div>
-<div class="button">
+<div id="bookmarks" class="bookmarks"></div>
+<div class="bottom-button">
   <button id="cancel" class="cancel">Cancel</button>
   <button id="create" class="create">Create</button>
+</div>`;
+};
+
+const generateFilterSelect = function () {
+  return `<div class="top-button button">
+  <button id="new" class="new">
+    <i class="fas fa-plus fa-xs"></i> New
+  </button>
+  <button id="filter" class="filter">
+    <i class="fas fa-filter fa-xs"></i> Filter
+  </button>
+</div>
+<div id="ratings" class="ratings">
+  <label for="ratings" class="ratings">Select Filter</label>
+  <select name="ratings" id="ratings">
+    <option value="All">All</option>
+    <option value="5">5</option>
+    <option value="4">4</option>
+    <option value="3">3</option>
+    <option value="2">2</option>
+    <option value="1">1</option>
+  </select>
+</div>
+<div id="bookmarks" class="bookmarks">
+  <h3>Title 10</h3>
+  <h3>Title 8</h3>
+</div>
+<div class="bottom-button">
+  <button id="clear-filter" class="clear-filter">Clear</button>
 </div>`;
 };
 
 // EVENT HANDLER FUNCTIONS
 
 const handleNewButtonClick = function () {
-  $(".top-button").on("click", ".new", function () {
+  $("main").on("click", ".new", function () {
     // code that you want to execute
     console.log("new item button clicked");
     // when user clicks button, change adding state to true
     store.adding = true;
+    // when user clicks button, change filtering state to false
+    store.filtering = false;
     // render new html for the form when adding state is true
     render();
   });
 };
 
 const handleFilterClick = function () {
-  $(".top-button").on("click", ".filter", function () {
+  $("main").on("click", ".filter", function () {
     // console log to indicate user clicked the button
     console.log("filter button clicked");
-
-    // if filtered state is true generate the dropdown html in the render function
-
-    // render();
+    // when user clicks button, change addings state to false
+    store.adding = false;
+    // when user clicks button, change filtering state to true
+    store.filtering = true;
+    // render new html for the filter dropdown when filtering state is true
+    render();
   });
 };
 
 const handleFilterDropdown = function () {
-  $("").on("", "", (event) => {
+  $(".").on("", "", (event) => {
     //code that you want to excute
     // when user selects a dropbox rating option
     // hide all bookmarks that are less than this rating / show bookmarks that are equal or greater than this rating using the store data
@@ -141,12 +190,13 @@ const handleExpandItemClick = function () {
 };
 
 const handleCancelClick = function () {
-  $(".button").on("click", ".cancel", (event) => {
+  $("main").on("click", ".cancel", function () {
     // code that you want to execute
-    // change adding state to false in the store
+    console.log("cancel button clicked");
+    // when user clicks button, change adding state to false
+    // when user clicks button, change filtering state to false
     // if adding state is false, then generate the home page html
-    // render the home page html
-    console.log("cancel add button clicked");
+    // render the home page html based on the condition
     // render();
   });
 };
@@ -175,21 +225,35 @@ const addNewBookmark = function () {
 
 // RENDER FUNCTION
 const render = function () {
-  console.log("render form function working");
   // if adding state is true, generate html for form and give to the dom
-  if ((store.adding = true)) {
+  if (store.adding === true) {
+    console.log("render form function working");
+    $(".top-button").empty();
     // create empty string for html
     let html = "";
     // set new html equal to the return string of generateAddForm()
     html = generateAddForm();
     // use jquery .replaceWith() to replace the current html with new html of the form
-    $(".top-button").replaceWith(html);
+    $(".top-button").html(html);
+  }
+  // if filtering state is true, generate html for dropdown and give to dom
+  if (store.filtering === true) {
+    console.log("render filter function working");
+    // set html to empty string
+    let html = "";
+    // assign html to filter dropdown template
+    html = generateFilterSelect();
+    // use jquery to replace the old html with new html
+    // $(".bookmarks").remove();
+    // $(".bottom-button").remove();
+    $(".top-button").html(html);
   }
 };
 
 function main() {
   handleNewButtonClick();
   handleFilterClick();
+  handleCancelClick();
 }
 
 // this function is the only function that stays in the index.js file once you modularize the tile structure
