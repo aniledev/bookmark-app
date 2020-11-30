@@ -1,6 +1,43 @@
 //  EXAMPLE STORE DATA SINGLE SOURCE OF TRUTH
 let store = {
-  bookmarks: [],
+  bookmarks: [
+    {
+      id: cuid(),
+      title: "javascript",
+      rating: 1,
+      url: "url",
+      description: "description",
+      expanded: false,
+      filtered: false,
+    },
+    {
+      id: cuid(),
+      title: "code",
+      rating: 2,
+      url: "url",
+      description: "description",
+      expanded: false,
+      filtered: false,
+    },
+    {
+      id: cuid(),
+      title: "coding",
+      rating: 4,
+      url: "url",
+      description: "description",
+      expanded: false,
+      filtered: false,
+    },
+    {
+      id: cuid(),
+      title: "stuff",
+      rating: 4,
+      url: "url",
+      description: "description",
+      expanded: false,
+      filtered: false,
+    },
+  ],
   adding: false, // is the new bookmark form showing or not?
   filtering: false, // is the dropdown box for filtering showing or not?
   filter: 0, // what rating are we filtering for?
@@ -81,7 +118,7 @@ const generateAddForm = function () {
 </div>`;
 };
 
-const generateFilterSelect = function () {
+const generateFilterDropdown = function () {
   const bookmarks = store.bookmarks.map((element) =>
     generateNewBookmark(element)
   );
@@ -112,6 +149,54 @@ ${bookmarks.join("")}
 <div class="bottom-button">
   <button id="clear-filter" class="clear-filter">Clear</button>
 </div>`;
+};
+
+const generateFilterList = function (object) {
+  console.log("filtered list function");
+  debugger;
+  // use filter array method to create filtered store.bookmarks based on store.filter selected value
+
+  const filteredBookmarks = store.bookmarks.filter(
+    (element) => element.rating >= store.filter
+  );
+  console.log(store.bookmarks);
+  console.log(store.filter);
+  console.log(filteredBookmarks);
+
+  //   if (store.bookmarks.rating >= store.filter) {
+  //     const bookmarks = store.bookmarks.map((element) =>
+  //       generateNewBookmark(element)
+  //     );
+  //     console.log(bookmarks.join(""));
+
+  //     return `<div>
+  //   <h1>myMarks</h1>
+  // </div><div class="top-button button">
+  //   <button id="new" class="new">
+  //     <i class="fas fa-plus fa-xs"></i> New
+  //   </button>
+  //   <button id="filter" class="filter">
+  //     <i class="fas fa-filter fa-xs"></i> Filter
+  //   </button>
+  // </div>
+  // <div id="ratings" class="ratings">
+  //   <label for="ratings" class="ratings">Select Filter</label>
+  //   <select name="ratings" id="ratings">
+  //     <option value="All">All</option>
+  //     <option value="5">5</option>
+  //     <option value="4">4</option>
+  //     <option value="3">3</option>
+  //     <option value="2">2</option>
+  //     <option value="1">1</option>
+  //   </select>
+  // </div>
+  // <div id="bookmarks" class="bookmarks">
+  // ${bookmarks.join("")}
+  // </div>
+  // <div class="bottom-button">
+  //   <button id="clear-filter" class="clear-filter">Clear</button>
+  // </div>`;
+  //   }
 };
 
 // this function generates the html for a single bookmark title
@@ -175,8 +260,8 @@ const handleFilterDropdown = function () {
     store.filter = $(".ratings option:selected").val();
     console.log(`the rating is ${store.filter}`);
     // hide all bookmarks that are less than this rating / show bookmarks that are equal or greater than this rating using the store data
-    // change filtered: false to true for store items
     //render the html
+    render();
   });
 };
 
@@ -196,6 +281,7 @@ const handleClearFilterClick = function () {
     // change filtering state in store to false
     store.adding = false;
     store.filtering = false;
+    store.filter = 0;
     // if filtering state is false generate html without dropdown box/home state of app
     render();
   });
@@ -293,13 +379,20 @@ const render = function () {
     // use jquery .replaceWith() to replace the current html with new html of the form
     $("section").html(html);
   }
+  // if filter has been selected value would be greater than 0
+  if (store.filtering === true && store.filter > 0) {
+    console.log("rendering filter list function");
+    let html = "";
+    html = generateFilterList();
+    $("section").html(html);
+  }
   // if filtering state is true, generate html for dropdown and give to dom
-  if (store.filtering === true) {
+  if (store.filtering === true && store.filter <= 0) {
     console.log("render filter function working");
     // set html to empty string
     let html = "";
     // assign html to filter dropdown template
-    html = generateFilterSelect();
+    html = generateFilterDropdown();
     // use jquery to replace the old html with new html
     // $(".bookmarks").remove();
     // $(".bottom-button").remove();
@@ -308,7 +401,7 @@ const render = function () {
   // if adding state is false and filtering state is false, generate the home screen html
   if (store.adding === false && store.filtering === false) {
     console.log("render home/bookmark store function working");
-    debugger;
+
     // use jquery to replace existing html with html for the home state
     let html = "";
     html = generateBookmarksString();
