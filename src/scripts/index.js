@@ -1,34 +1,6 @@
 //  EXAMPLE STORE DATA SINGLE SOURCE OF TRUTH
 let store = {
-  bookmarks: [
-    {
-      id: 1,
-      title: "javascript",
-      rating: 3,
-      url: "",
-      description: "",
-      expanded: false,
-      filtered: false,
-    },
-    {
-      id: 2,
-      title: "css",
-      rating: 4,
-      url: "",
-      description: "",
-      expanded: false,
-      filtered: false,
-    },
-    {
-      id: 3,
-      title: "programming",
-      rating: 4,
-      url: "",
-      description: "",
-      expanded: false,
-      filtered: false,
-    },
-  ],
+  bookmarks: [],
   adding: false, // is the new bookmark form showing or not?
   filtering: false, // is the dropdown box for filtering showing or not?
   filter: 0, // what rating are we filtering for?
@@ -56,7 +28,9 @@ const generateHomeScreen = function () {
 };
 
 const generateAddForm = function () {
-  return `<div id="form" class="form">
+  return `<div>
+  <h1>myMarks</h1>
+</div><div id="form" class="form">
   <h3>Add a new bookmark</h3>
   <form id="form" class="form" action="" method="" enctype="">
     <label for="bookmark-title">Title</label>
@@ -103,12 +77,17 @@ const generateAddForm = function () {
 <div id="bookmarks" class="bookmarks"></div>
 <div class="bottom-button">
   <button type="text" id="cancel" class="cancel">Cancel</button>
-  <input type="submit" id="create" class="create">Create</input>
+  <input type="submit" id="create" class="create" value="Create"></input>
 </div>`;
 };
 
 const generateFilterSelect = function () {
-  return `<div class="top-button button">
+  const bookmarks = store.bookmarks.map((element) =>
+    generateNewBookmark(element)
+  );
+  return `<div>
+  <h1>myMarks</h1>
+</div><div class="top-button button">
   <button id="new" class="new">
     <i class="fas fa-plus fa-xs"></i> New
   </button>
@@ -128,11 +107,36 @@ const generateFilterSelect = function () {
   </select>
 </div>
 <div id="bookmarks" class="bookmarks">
-  <h3>Title 10</h3>
-  <h3>Title 8</h3>
+${bookmarks.join("")}
 </div>
 <div class="bottom-button">
   <button id="clear-filter" class="clear-filter">Clear</button>
+</div>`;
+};
+
+// this function generates the html for a single bookmark title
+const generateNewBookmark = function (object) {
+  console.log("single bookmark generated function");
+  return `<h3>${object.title}</h3>`;
+};
+
+// this function generates the string for all the bookmarks to be rendered
+const generateBookmarksString = function (object) {
+  console.log("bookmark string function");
+  const bookmarks = store.bookmarks.map((element) =>
+    generateNewBookmark(element)
+  );
+  console.log(bookmarks.join(""));
+  return `<div><h1>myMarks</h1></div><div class="top-button button">
+  <button id="new" class="new">
+    <i class="fas fa-plus fa-xs"></i> New
+  </button>
+  <button id="filter" class="filter">
+    <i class="fas fa-filter fa-xs"></i> Filter
+  </button>
+</div>
+<div id="bookmarks" class="bookmarks">
+${bookmarks.join("")}
 </div>`;
 };
 
@@ -186,13 +190,13 @@ const handleDeleteItemClick = function () {
 };
 
 const handleClearFilterClick = function () {
-  $(".button").on("click", ".clear-filter", (event) => {
-    // code that you want to execute
-    //console log that user clicked button
-    // change filtering state in store to false
-    // if filtering state is false generate html without dropdown box/home state of app
+  $("main").on("click", ".clear-filter", function () {
     console.log("clear filter button clicked");
-    // render();
+    // change filtering state in store to false
+    store.adding = false;
+    store.filtering = false;
+    // if filtering state is false generate html without dropdown box/home state of app
+    render();
   });
 };
 
@@ -224,19 +228,17 @@ const handleCreateItemClick = function () {
   //the purpose of this function is to capture the values from the input form to be able to use for the factory function
   $("main").on("click", ".create", function () {
     event.preventDefault();
-    store.adding = false;
-    store.filtering = false;
     console.log("create bookmark button clicked");
     event.preventDefault();
-    $("form").submit();
     event.preventDefault();
-    debugger;
     console.log("form submitted");
-    createBookmarkObject();
+    addNewBookmark();
     // when the user inputs information into the form, capture the info in way that can be added into the store
     // use .val to capture the input values and set to values to pass into factory function
     // call the addNewBookmark function to add bookmark and change the state of the store
-    // render();
+    store.adding = false;
+    store.filtering = false;
+    render();
   });
 };
 
@@ -251,11 +253,11 @@ const createBookmarkObject = function () {
   const bookmarkTitle = $(".bookmark-title").val();
 
   let object = {
-    id: "id",
+    id: cuid(),
     title: bookmarkTitle,
     rating: rating,
     url: url,
-    descirption: description,
+    description: description,
     expanded: false,
     filtered: false,
   };
@@ -266,10 +268,13 @@ const createBookmarkObject = function () {
 console.log(createBookmarkObject());
 
 const addNewBookmark = function () {
-  // this function takes the information form the serialize formdata and adds it to the store
-  // run the validate name function to validate the form inputs
-  // run the create item name function, this factory funtion will return an object to push to the store
+  console.log("add bookmark function invoked");
+  // invoke factory function when submit is clicked, factory function returns an object to push to the store
+  let newBookmark = createBookmarkObject();
   // push the new bookmark to the store using .push()
+  console.log(store.bookmarks);
+  store.bookmarks.push(newBookmark);
+  console.log(store.bookmarks);
   // call the render function to show the new state of the store
   // add a try catch block to handle errors
 };
@@ -285,7 +290,7 @@ const render = function () {
     // set new html equal to the return string of generateAddForm()
     html = generateAddForm();
     // use jquery .replaceWith() to replace the current html with new html of the form
-    $(".top-button").html(html);
+    $("section").html(html);
   }
   // if filtering state is true, generate html for dropdown and give to dom
   if (store.filtering === true) {
@@ -297,26 +302,26 @@ const render = function () {
     // use jquery to replace the old html with new html
     // $(".bookmarks").remove();
     // $(".bottom-button").remove();
-    $(".top-button").html(html);
+    $("section").html(html);
   }
   // if adding state is false and filtering state is false, generate the home screen html
   if (store.adding === false && store.filtering === false) {
-    console.log("render home function working");
+    console.log("render home/bookmark store function working");
+    debugger;
     // use jquery to replace existing html with html for the home state
     let html = "";
-    html = generateHomeScreen();
-    $(".top-button").html(html);
+    html = generateBookmarksString();
+    $("section").html(html);
   }
 };
 
 function main() {
   handleNewButtonClick();
-  handleFilterClick();
   handleCancelClick();
   handleCreateItemClick();
+  handleFilterClick();
+  handleClearFilterClick();
 }
-
-console.log(cuid());
 
 // this function is the only function that stays in the index.js file once you modularize the tile structure
 $(main);
