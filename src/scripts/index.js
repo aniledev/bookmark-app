@@ -169,13 +169,14 @@ const handleFilterClick = function () {
 };
 
 const handleFilterDropdown = function () {
-  $(".").on("", "", (event) => {
+  $("main").on("change", ".ratings", function () {
     //code that you want to excute
-    // when user selects a dropbox rating option
+    console.log("user selected filter");
+    store.filter = $(".ratings option:selected").val();
+    console.log(`the rating is ${store.filter}`);
     // hide all bookmarks that are less than this rating / show bookmarks that are equal or greater than this rating using the store data
     // change filtered: false to true for store items
     //render the html
-    console.log("user selected filter option");
   });
 };
 
@@ -320,6 +321,7 @@ function main() {
   handleCancelClick();
   handleCreateItemClick();
   handleFilterClick();
+  handleFilterDropdown();
   handleClearFilterClick();
 }
 
