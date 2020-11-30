@@ -58,13 +58,13 @@ const generateHomeScreen = function () {
 const generateAddForm = function () {
   return `<div id="form" class="form">
   <h3>Add a new bookmark</h3>
-  <form id="form" class="form" action="" method="post" enctype="multipart/form-data">
-    <label for="title">Title</label>
+  <form id="form" class="form" action="" method="" enctype="">
+    <label for="bookmark-title">Title</label>
     <input
     required type="text"
-      id="title"
-      class="title"
-      name="title"
+      id="bookmark-title"
+      class="bookmark-title"
+      name="bookmark-title"
       placeholder="Awesome Bookmark Site" 
     />
     <label for="url">URL</label>
@@ -102,8 +102,8 @@ const generateAddForm = function () {
 </div>
 <div id="bookmarks" class="bookmarks"></div>
 <div class="bottom-button">
-  <button id="cancel" class="cancel">Cancel</button>
-  <button type="submit" id="create" class="create">Create</button>
+  <button type="text" id="cancel" class="cancel">Cancel</button>
+  <input type="submit" id="create" class="create">Create</input>
 </div>`;
 };
 
@@ -197,7 +197,7 @@ const handleClearFilterClick = function () {
 };
 
 const handleExpandItemClick = function () {
-  $(".bookmark").on("click", ".title", (event) => {
+  $(".bookmark").on("click", ".bookmark-title", (event) => {
     // code that you want to execute
     // console log that user clicked button
     // for that item change expanded in store to true
@@ -221,12 +221,18 @@ const handleCancelClick = function () {
 };
 
 const handleCreateItemClick = function () {
+  //the purpose of this function is to capture the values from the input form to be able to use for the factory function
   $("main").on("click", ".create", function () {
     event.preventDefault();
-    console.log("create bookmark button clicked");
-
     store.adding = false;
     store.filtering = false;
+    console.log("create bookmark button clicked");
+    event.preventDefault();
+    $("form").submit();
+    event.preventDefault();
+    debugger;
+    console.log("form submitted");
+    createBookmarkObject();
     // when the user inputs information into the form, capture the info in way that can be added into the store
     // use .val to capture the input values and set to values to pass into factory function
     // call the addNewBookmark function to add bookmark and change the state of the store
@@ -236,30 +242,31 @@ const handleCreateItemClick = function () {
 
 // FUNCTIONS THAT CHANGE THE STATE OF THE STORE
 
-// const serializeJSON = function () {
-//   // the purpose of this function is to convert form data into an object format
-//   const formData = new FormData(document.getElementById("form"));
-//   const o = {};
-//   formData.forEach((val, name) => (o[name] = val));
-//   console.log(JSON.stringify(o));
-//   return JSON.stringify(o);
-// };
-
 const createBookmarkObject = function () {
   // this function will take in values from the form and create a new object that can be pushed to the store data
-  return {
-    id: cuid(),
-    title: title,
+  console.log("create object function working");
+  const rating = $(".rating").val();
+  const url = $(".url").val();
+  const description = $(".description").val();
+  const bookmarkTitle = $(".bookmark-title").val();
+
+  let object = {
+    id: "id",
+    title: bookmarkTitle,
     rating: rating,
     url: url,
     descirption: description,
     expanded: false,
     filtered: false,
   };
+  console.log(object);
+  return object;
 };
 
+console.log(createBookmarkObject());
+
 const addNewBookmark = function () {
-  //code you want to execute
+  // this function takes the information form the serialize formdata and adds it to the store
   // run the validate name function to validate the form inputs
   // run the create item name function, this factory funtion will return an object to push to the store
   // push the new bookmark to the store using .push()
@@ -308,6 +315,8 @@ function main() {
   handleCancelClick();
   handleCreateItemClick();
 }
+
+console.log(cuid());
 
 // this function is the only function that stays in the index.js file once you modularize the tile structure
 $(main);
